@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yes or No</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+      .input-container {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        outline: none;
+        width: 250px;
+        transition: border-color 0.3s;
+      }
+      input[type="text"]:focus {
+        border-color: #007bff;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .buttons {
+        margin-top: 20px;
+        gap: 20px;
+        display: none;
+      }
+      .no-button {
+        position: absolute;
+      }
+      #question-display {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-container" id="input-container">
+      <input
+        type="text"
+        id="question-input"
+        placeholder="Enter your question here"
+      />
+      <input type="text" id="alert" placeholder="Alert" />
+      <button onclick="submitQuestion()">Submit</button>
+    </div>
+    <div id="question-display"></div>
+
+    <div class="buttons" id="buttons-container">
+      <button onclick="handleYesClick()">Yes</button>
+      <button class="no-button" onmouseover="moveNoButton()">No</button>
+    </div>
+
+    <script>
+      const aler = document.getElementById("alert");
+
+      function handleYesClick() {
+        // Show the input and submit button again
+        document.getElementById("input-container").style.display = "flex";
+        document.getElementById("buttons-container").style.display = "none";
+        alert(aler.value);
+      }
+
+      function moveNoButton() {
+        const noButton = document.querySelector(".no-button");
+        const randomX =
+          Math.random() * (window.innerWidth - noButton.offsetWidth);
+        const randomY =
+          Math.random() * (window.innerHeight - noButton.offsetHeight);
+        noButton.style.left = `${randomX}px`;
+        noButton.style.top = `${randomY}px`;
+      }
+
+      function submitQuestion() {
+        const questionInput = document.getElementById("question-input").value;
+        const questionDisplay = document.getElementById("question-display");
+        aler.style.display = "none";
+
+        // Update the question display text
+        if (questionInput) {
+          questionDisplay.textContent = questionInput;
+
+          // Hide the input and submit button and show Yes/No buttons
+          document.getElementById("input-container").style.display = "none";
+          document.getElementById("buttons-container").style.display = "flex";
+        }
+      }
+    </script>
+  </body>
+</html>
